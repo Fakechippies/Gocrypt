@@ -15,12 +15,14 @@ func main() {
 
 	flag.Parse()
 
-	result := encoding.Parser(*encFlag, *decryptFlag, *encryptFlag, flag.Args()[0])
-	if result != "" {
-		if *decryptFlag {
-			fmt.Printf("Decoded from %s : %s\n", *encFlag, result)
-		} else if *encryptFlag {
-			fmt.Printf("Encoded to %s : %s\n", *encFlag, result)
+	if *encFlag != "" {
+		result := encoding.Parser(*encFlag, *decryptFlag, *encryptFlag, flag.Args()[0])
+		if result != "" {
+			if *decryptFlag {
+				fmt.Printf("Decoded from %s : %s\n", *encFlag, result)
+			} else if *encryptFlag {
+				fmt.Printf("Encoded to %s : %s\n", *encFlag, result)
+			}
 		}
 	}
 }
