@@ -4,6 +4,8 @@ import (
 	b32 "encoding/base32"
 	b64 "encoding/base64"
 	"fmt"
+
+	"github.com/btcsuite/btcutil/base58"
 )
 
 func Parser(encMethod string, decode bool, encode bool, input string) string {
@@ -15,6 +17,9 @@ func Parser(encMethod string, decode bool, encode bool, input string) string {
 		return base32Conv(decode, encode, input)
 	}
 
+	if encMethod == "base58" {
+		return base58Conv(decode, encode, input)
+	}
 	return "Unsupported encoding method"
 
 }
@@ -46,6 +51,19 @@ func base32Conv(decode bool, encode bool, input string) string {
 			fmt.Println("Error decoding base32 : ", err)
 			return ""
 		}
+		result = string(data)
+	}
+	return result
+}
+
+func base58Conv(decode bool, encode bool, input string) string {
+	var result string
+
+	if encode {
+		data := []byte(input)
+		result = base58.Encode(data)
+	} else if decode {
+		data := base58.Decode(input)
 		result = string(data)
 	}
 	return result
