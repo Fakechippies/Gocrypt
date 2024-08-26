@@ -19,7 +19,7 @@ func main() {
 	hashFlag := flag.String("hash", "", "Enter the hashing method")
 
 	// Base conversion flags
-	baseFlag := flag.String("base", "", "Base Conversion Method")
+	baseFlag := flag.Bool("base", false, "Base Conversion")
 	fromFlag := flag.String("f", "", "current encoding method")
 	toFlag := flag.String("t", "", "new encoding method")
 
@@ -39,10 +39,10 @@ func main() {
 	} else if *hashFlag != "" {
 		result := hashing.Parser(*hashFlag, flag.Args()[0])
 		fmt.Printf("MD5 of string '%s' : %s\n", flag.Args()[0], result)
-	} else if *baseFlag != "" {
+	} else if *baseFlag {
 		result := baseconversion.Parser(*fromFlag, *toFlag, flag.Args()[0])
 		if result != "" {
-			fmt.Printf("Base Conversion from %s to %s : %s \n", *fromFlag, *toFlag, result)
+			fmt.Printf("'%s' conversion from %s to %s : %s \n", flag.Args()[0], *fromFlag, *toFlag, result)
 		} else {
 			fmt.Println("Error in conversion!!!")
 		}
