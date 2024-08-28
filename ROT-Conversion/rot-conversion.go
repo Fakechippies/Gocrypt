@@ -1,4 +1,4 @@
-package ROT
+package rotconversion
 
 func Parser(rot_type int, encrypt bool, decrypt bool, input string) string {
 	if encrypt {

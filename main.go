@@ -11,10 +11,12 @@ import (
 )
 
 func main() {
-	// Encoding flags
-	encFlag := flag.String("enc", "", "Enter the Encoding method")
+	// Basic Flags :
 	decryptFlag := flag.Bool("d", false, "Decode the input")
 	encryptFlag := flag.Bool("e", false, "Encode the input")
+
+	// Encoding flags
+	encFlag := flag.String("enc", "", "Enter the Encoding method")
 
 	// Hashing flags
 	hashFlag := flag.String("hash", "", "Enter the hashing method")
@@ -24,10 +26,8 @@ func main() {
 	fromFlag := flag.String("f", "", "current encoding method")
 	toFlag := flag.String("t", "", "new encoding method")
 
-	// Add more flags here if needed
+	// ROT flags
 	rotFlag := flag.Int("rot", 0, "Enter ROT type")
-	encrFlag := flag.Bool("encr", false, "encrypt the input")
-	decrFlag := flag.Bool("decr", false, "decrypt the input")
 
 	flag.Parse()
 
@@ -41,10 +41,10 @@ func main() {
 			}
 		}
 	} else if *rotFlag != 0 {
-		result := ROT.Parser(*rotFlag, *encrFlag, *decrFlag, flag.Args()[0])
-		if *encrFlag {
+		result := rotconversion.Parser(*rotFlag, *encryptFlag, *decryptFlag, flag.Args()[0])
+		if *encryptFlag {
 			fmt.Printf("Encrypted in ROT%d : %s", *rotFlag, result)
-		} else if *decrFlag {
+		} else if *decryptFlag {
 			fmt.Printf("Decrypted ROT%d : %s", *rotFlag, result)
 		}
 	} else if *hashFlag != "" {
