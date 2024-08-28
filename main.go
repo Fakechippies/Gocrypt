@@ -7,16 +7,19 @@ import (
 	"GoCrypt/Base-Conversion"
 	"GoCrypt/Encoding"
 	"GoCrypt/Hashing"
+	"GoCrypt/ROT-Conversion"
 )
 
 func main() {
 	// Verbose flag
 	vflag := flag.Bool("v", false, "Enable the verbose mode")
 
-	// Encoding flags
-	encFlag := flag.String("enc", "", "Enter the Encoding method")
+	// Basic Flags :
 	decryptFlag := flag.Bool("d", false, "Decode the input")
 	encryptFlag := flag.Bool("e", false, "Encode the input")
+
+	// Encoding flags
+	encFlag := flag.String("enc", "", "Enter the Encoding method")
 
 	// Hashing flags
 	hashFlag := flag.String("hash", "", "Enter the hashing method")
@@ -26,7 +29,8 @@ func main() {
 	fromFlag := flag.String("f", "", "current encoding method")
 	toFlag := flag.String("t", "", "new encoding method")
 
-	// Add more flags here if needed
+	// ROT flags
+	rotFlag := flag.Int("rot", 0, "Enter ROT type")
 
 	flag.Parse()
 
@@ -45,6 +49,21 @@ func main() {
 				} else {
 					fmt.Printf("%s\n", result)
 				}
+			}
+		}
+	} else if *rotFlag != 0 {
+		result := rotconversion.Parser(*rotFlag, *encryptFlag, *decryptFlag, flag.Args()[0])
+		if *encryptFlag {
+			if *vflag {
+				fmt.Printf("Encrypted in ROT%d : %s\n", *rotFlag, result)
+			} else {
+				fmt.Printf("%s\n", result)
+			}
+		} else if *decryptFlag {
+			if *vflag {
+				fmt.Printf("Decrypted ROT%d : %s\n", *rotFlag, result)
+			} else {
+				fmt.Printf("%s\n", result)
 			}
 		}
 	} else if *hashFlag != "" {
