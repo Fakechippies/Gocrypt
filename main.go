@@ -38,7 +38,7 @@ func main() {
 		}
 	} else if *hashFlag != "" {
 		result := hashing.Parser(*hashFlag, flag.Args()[0])
-		fmt.Printf("MD5 of string '%s' : %s\n", flag.Args()[0], result)
+		fmt.Printf("'%s' hash of string '%s' : %s\n", *hashFlag, flag.Args()[0], result)
 	} else if *baseFlag {
 		result := baseconversion.Parser(*fromFlag, *toFlag, flag.Args()[0])
 		if result != "" {
