@@ -15,6 +15,10 @@ func Parser(hashMethod string, hashString string) string {
 		return sha1Conv(hashString)
 	} else if hashMethod == "sha256" {
 		return sha256Conv(hashString)
+	} else if hashMethod == "sha224" {
+		return sha224Conv(hashString)
+	} else if hashMethod == "sha384" {
+		return sha384Conv(hashString)
 	} else if hashMethod == "sha512" {
 		return sha512Conv(hashString)
 	}
@@ -36,6 +40,18 @@ func sha1Conv(hashString string) string {
 func sha256Conv(hashString string) string {
 	data := []byte(hashString)
 	hash := sha256.Sum256(data)
+	return hex.EncodeToString(hash[:])
+}
+
+func sha224Conv(hashString string) string {
+	data := []byte(hashString)
+	hash := sha256.Sum224(data)
+	return hex.EncodeToString(hash[:])
+}
+
+func sha384Conv(hashString string) string {
+	data := []byte(hashString)
+	hash := sha512.Sum384(data)
 	return hex.EncodeToString(hash[:])
 }
 
