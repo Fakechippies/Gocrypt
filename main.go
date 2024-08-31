@@ -5,6 +5,7 @@ import (
 	"fmt"
 
 	"GoCrypt/Base-Conversion"
+	cracking "GoCrypt/Cracking"
 	"GoCrypt/Encoding"
 	"GoCrypt/Hashing"
 	"GoCrypt/ROT-Conversion"
@@ -31,6 +32,10 @@ func main() {
 
 	// ROT flags
 	rotFlag := flag.Int("rot", 0, "Enter ROT type")
+
+	// Cracking flags
+	crackFlag := flag.String("crack", "", "Enter the Password Crack Hash Type")
+	wordlistFlag := flag.String("wordlists", "", "Enter the wordlist path")
 
 	flag.Parse()
 
@@ -83,6 +88,17 @@ func main() {
 			}
 		} else {
 			fmt.Println("Error in conversion!!!")
+		}
+	} else if *crackFlag != "" {
+		result := cracking.Parser(*crackFlag, *wordlistFlag, flag.Args()[0])
+		if result != "" {
+			if *vflag {
+				fmt.Printf("'%s' %s hash cracked to : %s\n", flag.Args()[0], *crackFlag, result)
+			} else {
+				fmt.Printf("%s\n", result)
+			}
+		} else {
+			fmt.Println("Error in cracking")
 		}
 	}
 }
