@@ -15,6 +15,8 @@ func Parser(hashMethod string, wordlistPath string, hashString string) string {
 		return sha1Crack(hashString, wordlistPath)
 	} else if hashMethod == "sha224" {
 		return sha224Crack(hashString, wordlistPath)
+	} else if hashMethod == "sha256" {
+		return sha256Crack(hashString, wordlistPath)
 	}
 	return "Password Cracking Method not found"
 }
@@ -83,6 +85,32 @@ func sha224Crack(hashString string, wordlistPath string) string {
 	for scanner.Scan() {
 		word := scanner.Text()
 		hashedWord := hashing.Parser("sha224", word)
+		if hashedWord == hashString {
+			return word
+		}
+	}
+
+	if err := scanner.Err(); err != nil {
+		fmt.Println("Error reading wordlist : ", err)
+		return ""
+	}
+
+	fmt.Println("Cannot crack password")
+	return ""
+}
+
+func sha256Crack(hashString string, wordlistPath string) string {
+	file, err := os.Open(wordlistPath)
+	if err != nil {
+		fmt.Println("Error opening wordlist : ", err)
+		return ""
+	}
+	defer file.Close()
+
+	scanner := bufio.NewScanner(file)
+	for scanner.Scan() {
+		word := scanner.Text()
+		hashedWord := hashing.Parser("sha256", word)
 		if hashedWord == hashString {
 			return word
 		}
