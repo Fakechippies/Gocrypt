@@ -4,6 +4,7 @@ import (
 	"flag"
 	"fmt"
 
+	"GoCrypt/Ascii"
 	"GoCrypt/Base-Conversion"
 	cracking "GoCrypt/Cracking"
 	"GoCrypt/Encoding"
@@ -32,6 +33,9 @@ func main() {
 
 	// ROT flags
 	rotFlag := flag.Int("rot", 0, "Enter ROT type")
+
+	// ascii flag
+	asciiFlag := flag.Bool("ascii", false, "ASCII encoding/decoding")
 
 	// Cracking flags
 	crackFlag := flag.String("crack", "", "Enter the Password Crack Hash Type")
@@ -88,6 +92,13 @@ func main() {
 			}
 		} else {
 			fmt.Println("Error in conversion!!!")
+		}
+	} else if *asciiFlag != false {
+		result := ascii.Parser(*decryptFlag, *encryptFlag, flag.Args()[0])
+		if *decryptFlag {
+			fmt.Printf("Decoded: %s", result)
+		} else if *encryptFlag {
+			fmt.Printf("Encoded: %s", result)
 		}
 	} else if *crackFlag != "" {
 		result := cracking.Parser(*crackFlag, *wordlistFlag, flag.Args()[0])
