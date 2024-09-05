@@ -96,9 +96,9 @@ func main() {
 	} else if *asciiFlag != false {
 		result := ascii.Parser(*decryptFlag, *encryptFlag, flag.Args()[0])
 		if *decryptFlag {
-			fmt.Printf("Decoded: %s", result)
+			fmt.Printf("Decoded: %s\n", result)
 		} else if *encryptFlag {
-			fmt.Printf("Encoded: %s", result)
+			fmt.Printf("Encoded: %s\n", result)
 		}
 	} else if *crackFlag != "" {
 		result := cracking.Parser(*crackFlag, *wordlistFlag, flag.Args()[0])
