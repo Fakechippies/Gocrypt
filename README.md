@@ -18,7 +18,7 @@ GoCrypt is a lightweight cryptographic framework written in Go, designed for dev
 <pre>go run main.go [options] [input]</pre>
 
 # Examples
-<pre>go run main.go -crack md5 -wordlists /usr/share/wordlists/rockyou.txt 5f4dcc3b5aa765d61d8327deb882cf99</pre>
+<pre>go run main.go -crack md5 -w /usr/share/wordlists/rockyou.txt 5f4dcc3b5aa765d61d8327deb882cf99</pre>
 <pre>go run main.go -hash sha512 GoCrypt</pre>
 <pre>go run main.go -enc base64 -e Gocrypt</pre>
 <pre>go run main.go -base -f base10 -t base2 777</pre>
