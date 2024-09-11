@@ -26,6 +26,3 @@ GoCrypt is a lightweight cryptographic framework written in Go, designed for dev
  
 # Contributing
 Contributions are welcome! Feel free to submit pull requests or raise issues.
-
-# License
-This project is licensed under the MIT License - see the <a src="https://github.com/Fakechippies/Gocrypt/blob/master/LICENSE">LICENSE</a> file for details.
