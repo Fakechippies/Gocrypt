@@ -15,6 +15,9 @@ func main() {
 	// Verbose flag
 	vflag := flag.Bool("v", false, "Enable the verbose mode")
 
+	// Help flag
+	hflag := flag.Bool("h", false, "Help")
+	
 	// Basic Flags :
 	decryptFlag := flag.Bool("d", false, "Decode the input")
 	encryptFlag := flag.Bool("e", false, "Encode the input")
@@ -35,9 +38,34 @@ func main() {
 
 	// Cracking flags
 	crackFlag := flag.String("crack", "", "Enter the Password Crack Hash Type")
-	wordlistFlag := flag.String("wordlists", "", "Enter the wordlist path")
+	wordlistFlag := flag.String("w", "", "Enter the wordlist path")
 
 	flag.Parse()
+
+	if *hflag {
+		help := `
+		go run main.go [options] [input]
+
+		-h :- Help
+		-v :- Verbose
+		-d :- Decrypt
+		-e :- Encrypt
+		-base :- Base Inter-Conversion (base2, base10, base16)
+		-enc :- Encodings (base64, base58, base32, UR)	
+		-w :- Wordlist
+		-crack :- Password hash cracking (md5, sha1, sha256, sha224, sha384, sha512)
+		-hash :- Hashing (md5, sha1, sha256, sha224, sha384, sha512)
+		-rot :- ROT (rot13, rot25, rot47 etc)
+		
+		Examples
+		go run main.go -crack md5 -w /usr/share/wordlists/rockyou.txt 5f4dcc3b5aa765d61d8327deb882cf99
+		go run main.go -hash sha512 GoCrypt
+		go run main.go -enc base64 -e Gocrypt
+		go run main.go -base -f base10 -t base2 777
+		go run main.go -rot 13 -e hello 
+		`
+		fmt.Println(help)
+	}
 
 	if *encFlag != "" {
 		result := encoding.Parser(*encFlag, *decryptFlag, *encryptFlag, flag.Args()[0])
