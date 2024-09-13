@@ -17,7 +17,7 @@ func main() {
 
 	// Help flag
 	hflag := flag.Bool("h", false, "Help")
-	
+
 	// Basic Flags :
 	decryptFlag := flag.Bool("d", false, "Decode the input")
 	encryptFlag := flag.Bool("e", false, "Encode the input")
