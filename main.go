@@ -40,6 +40,8 @@ func main() {
 	crackFlag := flag.String("crack", "", "Enter the Password Crack Hash Type")
 	wordlistFlag := flag.String("w", "", "Enter the wordlist path")
 
+	// Encryption flags
+
 	flag.Parse()
 
 	if *hflag {
