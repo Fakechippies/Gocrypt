@@ -7,6 +7,7 @@ import (
 	"GoCrypt/Base-Conversion"
 	cracking "GoCrypt/Cracking"
 	"GoCrypt/Encoding"
+	"GoCrypt/Encryption"
 	"GoCrypt/Hashing"
 	"GoCrypt/ROT-Conversion"
 )
@@ -41,6 +42,7 @@ func main() {
 	wordlistFlag := flag.String("w", "", "Enter the wordlist path")
 
 	// Encryption flags
+	encryptionFlag := flag.String("encrypt", "", "Method of Encryption/Decryption")
 
 	flag.Parse()
 
@@ -58,6 +60,7 @@ func main() {
 		-crack :- Password hash cracking (md5, sha1, sha256, sha224, sha384, sha512)
 		-hash :- Hashing (md5, sha1, sha256, sha224, sha384, sha512)
 		-rot :- ROT (rot13, rot25, rot47 etc)
+		-encrypt :- Encryption/Decryption (AES, 3DES)
 		
 		Examples
 		go run main.go -crack md5 -w /usr/share/wordlists/rockyou.txt 5f4dcc3b5aa765d61d8327deb882cf99
@@ -65,6 +68,7 @@ func main() {
 		go run main.go -enc base64 -e Gocrypt
 		go run main.go -base -f base10 -t base2 777
 		go run main.go -rot 13 -e hello 
+	
 		`
 		fmt.Println(help)
 	}
@@ -129,6 +133,24 @@ func main() {
 			}
 		} else {
 			fmt.Println("Error in cracking")
+		}
+	} else if *encryptionFlag != "" {
+		result := encryption.Parser(*encryptionFlag, *encryptFlag, *decryptFlag, flag.Args()[0], flag.Args()[1])
+		if result != "" {
+			if *encryptFlag {
+				if *vflag {
+					fmt.Printf("'%s' encrypted with '%s' to '%s'\n", flag.Args()[0], flag.Args()[1], result)
+				} else {
+					fmt.Printf("%s\n", result)
+				}
+			} else if *decryptFlag {
+				if *vflag {
+					fmt.Printf("'%s' decrypted with '%s' to '%s'\n", flag.Args()[0], flag.Args()[1], result)
+				} else {
+					fmt.Printf("%s\n", result)
+				}
+			}
+
 		}
 	}
 }
