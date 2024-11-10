@@ -68,7 +68,7 @@ func main() {
 		go run main.go -enc base64 -e Gocrypt
 		go run main.go -base -f base10 -t base2 777
 		go run main.go -rot 13 -e hello 
-	
+		go run main.go -encrypt 3des -e Hellothisisamessage Thisisakeyanditwork12345
 		`
 		fmt.Println(help)
 	}
